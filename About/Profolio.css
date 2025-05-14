@@ -59,6 +59,29 @@ li {list-style: none; }
 
 img, ion-icon, a, button, time, span { display: block; }
 
+.custom-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--orange-yellow-crayola);
+    /* For SVG icons */
+    fill: var(--orange-yellow-crayola);
+}
+
+.custom-icon {
+    width: 24px;
+    height: 24px;
+    /* Match other icon styles */
+    color: var(--icon-color, currentColor);
+}
+
+/* For icon-box consistency */
+.icon-box .custom-icon {
+    width: 16px;  /* Matches other icon sizes in icon-box */
+    height: 16px;
+    /* Match the color of other icons */
+    filter: brightness(0) saturate(100%) invert(88%) sepia(21%) saturate(1960%) hue-rotate(332deg) brightness(104%) contrast(101%);
+}
+
 button {
     font: inherit;
     background: none;
@@ -1091,6 +1114,11 @@ textarea.form-input {
         height: 48px;
         border-radius: 12px;
         font-size: 18px;
+    }
+
+    .icon-box .custom-icon {
+        width: 18px;
+        height: 18px;
     }
 
     main {
