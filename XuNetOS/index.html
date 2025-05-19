@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XuNet OS - Fast. Independent. Crafted in Bare Metal.</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <h1>XuNet OS</h1>
+            <h2>Fast. Independent. Crafted in Bare Metal.</h2>
+            <p class="subheading">A 32-bit educational OS built in C and Assembly for x86, with its own kernel, bootloader, and GUI.</p>
+            <div class="hero-buttons">
+                <a href="https://github.com/InboraStudio/XuNetOS-32-bit" class="cta-button">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+                <a href="#documentation" class="cta-button secondary">Documentation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview">
+        <div class="container">
+            <h2>Overview</h2>
+            <p>XuNet OS is an educational operating system designed to help developers understand the fundamentals of OS development. Built from scratch in C and Assembly, it provides a hands-on experience with low-level programming concepts and system architecture.</p>
+            <p>Our goal is to create a clean, well-documented codebase that serves as both a learning resource and a foundation for experimental OS development. Whether you're a student, researcher, or hobbyist, XuNet OS offers a practical platform for exploring operating system concepts.</p>
+        </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section id="features">
+        <div class="container">
+            <h2>Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-microchip"></i>
+                    <h3>Custom Kernel</h3>
+                    <p>Bare-metal implementation with protected mode support and memory management</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-desktop"></i>
+                    <h3>GUI Framework</h3>
+                    <p>Basic graphical interface with window management and drawing primitives</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-boot"></i>
+                    <h3>Bootloader</h3>
+                    <p>Custom bootloader for system initialization and kernel loading</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-folder"></i>
+                    <h3>File System</h3>
+                    <p>Basic file system implementation (Work in Progress)</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-keyboard"></i>
+                    <h3>Keyboard & Interrupts</h3>
+                    <p>Hardware interrupt handling and keyboard input processing</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-terminal"></i>
+                    <h3>Shell Interface</h3>
+                    <p>Command-line interface with basic system commands</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-code"></i>
+                    <h3>System APIs</h3>
+                    <p>Clean interface for system calls and hardware access</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-power-off"></i>
+                    <h3>APM Support</h3>
+                    <p>Advanced Power Management for proper system shutdown</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Architecture Section -->
+    <section id="architecture">
+        <div class="container">
+            <h2>Technical Architecture</h2>
+            <div class="architecture-diagram">
+                <div class="layer">Applications</div>
+                <div class="connector"></div>
+                <div class="layer">System APIs</div>
+                <div class="connector"></div>
+                <div class="layer">GUI System</div>
+                <div class="connector"></div>
+                <div class="layer">Shell</div>
+                <div class="connector"></div>
+                <div class="layer">Kernel</div>
+                <div class="connector"></div>
+                <div class="layer">Bootloader</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Low-Level Math Section -->
+    <section id="math">
+        <div class="container">
+            <h2>Low-Level Mathematics</h2>
+            <div class="math-grid">
+                <div class="math-card">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Binary & Hex Arithmetic</h3>
+                    <p>Core mathematical operations in binary and hexadecimal</p>
+                </div>
+                <div class="math-card">
+                    <i class="fas fa-table"></i>
+                    <h3>Modular Arithmetic</h3>
+                    <p>Essential for memory addressing and circular buffers</p>
+                </div>
+                <div class="math-card">
+                    <i class="fas fa-th"></i>
+                    <h3>Matrix & Pixel Math</h3>
+                    <p>2D graphics calculations and display transformations</p>
+                </div>
+                <div class="math-card">
+                    <i class="fas fa-map"></i>
+                    <h3>Address Mapping</h3>
+                    <p>Memory address calculations and page table operations</p>
+                </div>
+                <div class="math-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>PIT/Timing</h3>
+                    <p>Programmable Interval Timer calculations and scheduling</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Changelog Section -->
+    <section id="changelog">
+        <div class="container">
+            <h2>Changelog v1.1.1af1</h2>
+            <ul class="changelog-list">
+                <li>Initial bootloader implementation with FAT12 support</li>
+                <li>Basic kernel structure with memory management</li>
+                <li>Simple shell interface with basic commands</li>
+                <li>Basic GUI framework with window management</li>
+                <li>Keyboard and interrupt handling system</li>
+                <li>VESA graphics mode support</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Build & Run Section -->
+    <section id="build-run">
+        <div class="container">
+            <h2>Build & Run</h2>
+            <div class="code-block">
+                <pre><code># Clone the repository
+git clone https://github.com/InboraStudio/XuNetOS-32-bit.git
+cd XuNetOS-32-bit
+
+# Build the OS
+make all
+
+# Run in QEMU
+make run
+
+# Create bootable ISO
+make iso</code></pre>
+            </div>
+            <div class="requirements">
+                <h3>Prerequisites</h3>
+                <ul>
+                    <li>NASM (Netwide Assembler) 2.15.05 or later</li>
+                    <li>GCC (GNU Compiler Collection) with 32-bit support</li>
+                    <li>QEMU (for emulation)</li>
+                    <li>z_tools (development tools)</li>
+                </ul>
+            </div>
+            <div class="warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Note: Make sure to set up z_tools directory before building. See documentation for details.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Goals Section -->
+    <section id="learning">
+        <div class="container">
+            <h2>Learning & Research Goals</h2>
+            <ul class="goals-list">
+                <li>Understanding protected mode and real mode transitions</li>
+                <li>Writing and implementing system calls</li>
+                <li>Developing device drivers and interrupt handlers</li>
+                <li>Memory management and paging implementation</li>
+                <li>Basic GUI development and graphics programming</li>
+                <li>File system design and implementation</li>
+                <li>Process scheduling and multitasking</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Internals & Roadmap Section -->
+    <section id="roadmap">
+        <div class="container">
+            <h2>Internals & Roadmap</h2>
+            <div class="subsystems-table">
+                <table>
+                    <tr>
+                        <th>Subsystem</th>
+                        <th>Status</th>
+                        <th>Notes</th>
+                    </tr>
+                    <tr>
+                        <td>Bootloader</td>
+                        <td>✅</td>
+                        <td>FAT12 support, kernel loading</td>
+                    </tr>
+                    <tr>
+                        <td>Kernel</td>
+                        <td>✅</td>
+                        <td>Basic memory management</td>
+                    </tr>
+                    <tr>
+                        <td>Filesystem</td>
+                        <td>⚠️</td>
+                        <td>Basic implementation</td>
+                    </tr>
+                    <tr>
+                        <td>GUI</td>
+                        <td>⚠️</td>
+                        <td>Window management in progress</td>
+                    </tr>
+                    <tr>
+                        <td>Network Stack</td>
+                        <td>🔴</td>
+                        <td>Planned for v2.0</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="planned-features">
+                <h3>Planned Features</h3>
+                <ul>
+                    <li>Multitasking support with process scheduling</li>
+                    <li>Basic network stack implementation</li>
+                    <li>Advanced GUI toolkit with widgets</li>
+                    <li>Package management system</li>
+                    <li>USB device support</li>
+                    <li>Sound system implementation</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Developed by Inbora Studio</p>
+            <a href="https://github.com/InboraStudio/XuNetOS-32-bit" class="github-button">
+                <i class="fab fa-github"></i> View on GitHub
+            </a>
+            <div class="references">
+                <h3>External References</h3>
+                <ul>
+                    <li><a href="https://github.com/cfenollosa/os-tutorial">30 Days OS</a></li>
+                    <li><a href="https://wiki.osdev.org">OSDev.org</a></li>
+                    <li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html">Intel Manuals</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
