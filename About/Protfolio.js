@@ -94,6 +94,25 @@ for (let i = 0; i < filterBtn.length; i++) {
     })
 }
 
+// Add filtering functionality
+const filterButtons = document.querySelectorAll("[data-filter-btn]");
+
+const filter = function() {
+    const selectedCategory = this.textContent.toLowerCase();
+    
+    filterItems.forEach(item => {
+        const category = item.dataset.category.toLowerCase();
+        
+        if(selectedCategory === "all" || category === selectedCategory) {
+            item.classList.add("active");
+        } else {
+            item.classList.remove("active");
+        }
+    });
+}
+
+filterButtons.forEach(button => button.addEventListener("click", filter));
+
 // Enabling Contact Form
 
 const form = document.querySelector('[data-form]');
