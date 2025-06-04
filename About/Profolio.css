@@ -421,6 +421,16 @@ article { display: none; }
         padding-right: 10px;
      }
 
+    /* Add this to your existing CSS */
+    .about-text p:first-of-type::first-letter {
+        float: left;
+        font-size: 3em;
+        
+        padding-right: 8px;
+        line-height: 0.85;
+        color: var(--orange-yellow-crayola);
+    }
+
 .service { margin-bottom: 35px; }
 
 .service-title { margin-bottom: 20px; }
