@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quin Beta 21.ab1 (8B) — Research Artifact</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai-sublime.min.css">
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#7c3aed; --glass: rgba(255,255,255,0.03);
+      --pad:20px; font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#071028 0%, #071b2b 100%);color:#e6eef6;line-height:1.45}
+    .wrap{max-width:1100px;margin:36px auto;padding:24px}
+    header{display:flex;gap:16px;align-items:center}
+    .logo{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#2dd4bf);display:flex;align-items:center;justify-content:center;font-weight:800;box-shadow:0 6px 18px rgba(0,0,0,0.5)}
+    h1{margin:0;font-size:20px}
+    .meta{color:var(--muted);font-size:13px}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:18px}
+    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--glass);color:var(--muted);font-size:12px}
+    pre{background:#061024;padding:12px;border-radius:8px;overflow:auto}
+    code{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace;font-size:13px}
+    .section-title{display:flex;align-items:center;justify-content:space-between}
+    .small{font-size:13px;color:var(--muted)}
+    a.btn{display:inline-block;padding:10px 12px;border-radius:8px;background:linear-gradient(90deg,var(--accent),#34d399);color:#041223;text-decoration:none;font-weight:700}
+    .links a{display:block;color:#cfe9ff;text-decoration:none;margin-bottom:8px}
+    .note{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:12px;border-radius:8px;color:var(--muted)}
+    .specs{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px}
+    .specs div{background:var(--glass);padding:10px;border-radius:8px;font-size:13px}
+    .formula{background:#041029;padding:12px;border-radius:8px;color:#dbeafe;font-family: "Times New Roman", serif}
+    .copy{cursor:pointer;border:none;padding:8px 10px;border-radius:8px;background:#122434;color:#cfe9ff}
+    .curl-row{display:flex;gap:8px;align-items:center}
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+    @media (max-width:980px){.grid{grid-template-columns:1fr} .logo{width:56px;height:56px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">QB</div>
+      <div>
+        <h1>Quin Beta 21.ab1 (8B) — Research Artifact</h1>
+        <div class="meta">Model Identifier: <strong>Quin-Beta-21.ab1</strong> · Status: <strong>EXPERIMENTAL (v0.2.1)</strong> · 8.1B projected params</div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <main>
+        <section class="card">
+          <div class="section-title">
+            <div>
+              <div class="pill">Internal research · Not for production</div>
+            </div>
+            <div class="small">Updated: <strong>v0.2.1</strong></div>
+          </div>
+
+          <h2 style="margin-top:12px">Abstract & Research Context</h2>
+          <p class="small" style="margin-top:8px">Quin Beta 21.ab1 is a pre-production, internal research artifact developed to validate novel architectural hypotheses — specifically <strong>Resonant Gating Units (RGUs)</strong> and <strong>Causal State Tensors (CSTs)</strong>. It is intentionally unstable and intended for architectural experiments, ablation studies, and academic review.</p>
+
+          <div style="margin-top:12px" class="note">
+            <strong>Primary objective:</strong> architectural validation. <strong>Not for production</strong>. No alignment or safety tuning applied.
+          </div>
+
+          <h3 style="margin-top:16px">RGU activation (conceptual)</h3>
+          <div class="formula">
+            \(\phi(x) = G(x, W_g) \cdot \tanh\big( R(x, \Omega) \odot (x W_v)\big)\)
+            <br>
+            \(R(x,\Omega) = \cos^2\big(\mathrm{proj}(x, W_k) \cdot \Omega\big)\)
+          </div>
+          <p class="small" style="margin-top:8px">This resonance-driven gating encourages the network to discover frequency-matched pathways for selective activation of neurons, reducing FLOPs per token by activating salient pathways.</p>
+
+          <h3 style="margin-top:14px">Model description</h3>
+          <ul class="small" style="margin-top:6px">
+            <li>Decoder-only, Quin architecture (v0.2b).</li>
+            <li>8.1B projected parameters (Asymmetric Parameter Projection from Quin-91).</li>
+            <li>Context window: 8192 tokens (truncated).</li>
+            <li>32 RGU layers (example configuration used in internal tests).</li>
+            <li>State management: Causal State Tensor (4th-order tensor per token).</li>
+          </ul>
+
+          <h3 style="margin-top:12px">Architectural innovations (high-level)</h3>
+          <div class="small">
+            <strong>Asymmetric Parameter Projection (APP)</strong>: high-fidelity projection from a 910B parent's latent space.
+            <br>
+            <strong>RGUs</strong>: replace FFN/MoE with frequency-dependent gating.
+            <br>
+            <strong>CSTs</strong>: replace KV cache with a predictive tensor per token.
+          </div>
+
+          <h3 style="margin-top:16px">Pseudocode (illustrative)</h3>
+          <pre><code class="hljs python"># WARNING: illustrative pseudocode only (loader not public)
+from quin_arch_loader import QuinLoader, QuinConfig
+
+config = QuinConfig(
+    model_type="quin",
+    variant="21.ab1",
+    n_layers=32,
+    rgu_expansion_factor=2.75,
+    cst_dimensions=1024,
+    projection_parent_hash="quin-91/proj-map-v2.bin"
+)
+
+model = QuinLoader.from_pretrained(
+    "DrChamyoung/Quin-Beta-21.ab1",
+    config=config,
+    device_map="auto",
+    precision="bf16"
+)
+
+# print(model.get_architecture_report())
+# > [Quin-21.ab1]: 8.1B Params. 32 RGU layers. CST dim 1024.
+</code></pre>
+
+          <h3 style="margin-top:14px">Development status & disclaimers</h3>
+          <div class="note small">This artifact is provided for research transparency. It may produce unpredictable or non-coherent outputs and must not be used for real-world tasks. Using requires a custom loader that understands CSTs and RGUs.</div>
+
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <h3>Technical details & quick specs</h3>
+          <div class="specs">
+            <div><strong>Model type</strong><br>quin (custom)</div>
+            <div><strong>Variant</strong><br>21.ab1 (Asymmetric Beta 1)</div>
+            <div><strong>Parameters</strong><br>~8.1B (projected)</div>
+            <div><strong>Context</strong><br>8192 tokens</div>
+            <div><strong>Layers</strong><br>32 (example)</div>
+            <div><strong>CST dim</strong><br>1024 (example)</div>
+          </div>
+
+          <h4 style="margin-top:12px">Intended use (theoretical)</h4>
+          <p class="small">This model is for internal R&amp;D and architecture research. There is no public transformers-style loader; loading requires a custom QuinLoader that can initialize RGU and CST layers correctly.</p>
+
+        </section>
+
+      </main>
+
+      <aside>
+        <div class="card">
+          <h3 style="margin:0 0 8px 0">Quick links</h3>
+          <div class="links">
+            <a href="https://huggingface.co/DrChamyoung/QuinBeta21.ab1" target="_blank">Hugging Face model page</a>
+            <a href="https://github.com/SeoParkjun" target="_blank">Train By: SeoParkjun (GitHub)</a>
+            <a href="https://github.com/InboraStudio" target="_blank">Network & Architecture: InboraStudio (GitHub)</a>
+            <a href="https://discord.gg/pVA8NZ5mru" target="_blank">Test the model on Discord</a>
+            <a href="https://huggingface.co/datasets/DrChamyoung/Quinbeta5.2DataSets" target="_blank">Dataset: Quinbeta5.2DataSets</a>
+          </div>
+
+          <h4 style="margin-top:12px">Dataset API (curl)</h4>
+          <div class="curl-row">
+            <pre style="flex:1;margin:0;padding:8px;border-radius:8px;">curl -X GET "https://datasets-server.huggingface.co/rows?dataset=DrChamyoung%2FQuinbeta5.2DataSets&config=default&split=train&offset=0&length=100"</pre>
+            <button class="copy" data-clip="curl -X GET \"https://datasets-server.huggingface.co/rows?dataset=DrChamyoung%2FQuinbeta5.2DataSets&config=default&split=train&offset=0&length=100\"">Copy</button>
+          </div>
+
+          <div style="margin-top:10px" class="curl-row">
+            <pre style="flex:1;margin:0;padding:8px;border-radius:8px;">curl -X GET "https://datasets-server.huggingface.co/splits?dataset=DrChamyoung%2FQuinbeta5.2DataSets"</pre>
+            <button class="copy" data-clip="curl -X GET \"https://datasets-server.huggingface.co/splits?dataset=DrChamyoung%2FQuinbeta5.2DataSets\"">Copy</button>
+          </div>
+
+          <div style="margin-top:10px" class="curl-row">
+            <pre style="flex:1;margin:0;padding:8px;border-radius:8px;">curl -X GET "https://huggingface.co/api/datasets/DrChamyoung/Quinbeta5.2DataSets/parquet/default/train"</pre>
+            <button class="copy" data-clip="curl -X GET \"https://huggingface.co/api/datasets/DrChamyoung/Quinbeta5.2DataSets/parquet/default/train\"">Copy</button>
+          </div>
+
+          <hr style="margin:12px 0;border-color:rgba(255,255,255,0.03)">
+          <div class="small">Model files and loader are internal. The page documents architecture and API pointers only.</div>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <h3 style="margin-top:0">Safety & Licensing</h3>
+          <div class="note small">Status: <strong>EXPERIMENTAL</strong>. This artifact is <strong>NOT</strong> suitable for production, alignment, or safety-critical tasks. Use only for academic review and internal testing per the developers' terms.</div>
+
+          <h4 style="margin-top:10px">Contact / Community</h4>
+          <div class="small">Join <a href="https://discord.gg/pVA8NZ5mru" target="_blank">the Discord</a> for testing; or reach out via <a href="https://github.com/SeoParkjun" target="_blank">GitHub</a>.</div>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <div class="small">Train By <a href="https://github.com/SeoParkjun" target="_blank">SeoParkjun</a> · Network & Architecture by <a href="https://github.com/InboraStudio" target="_blank">InboraStudio</a> · Model hosted at Hugging Face.</div>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script>
+    // init highlight
+    document.querySelectorAll('pre code').forEach((el) => hljs.highlightElement(el));
+
+    // copy buttons
+    document.querySelectorAll('.copy').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const txt = btn.getAttribute('data-clip');
+        navigator.clipboard.writeText(txt).then(()=>{
+          btn.textContent = 'Copied!';
+          setTimeout(()=>btn.textContent='Copy',1200);
+        }).catch(()=>{
+          btn.textContent='Failed';
+          setTimeout(()=>btn.textContent='Copy',1200);
+        })
+      })
+    });
+
+    // render math (simple): try to load MathJax dynamically if available
+    (function loadMathJax(){
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      s.async = true;
+      document.head.appendChild(s);
+    })();
+  </script>
+</body>
+</html>
