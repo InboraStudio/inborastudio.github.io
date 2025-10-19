@@ -1092,6 +1092,43 @@ textarea.form-input {
     .project-img, .blog-banner-box { height: auto; }
 }
 
+@media (max-width: 449px) {
+    /* Enhanced mobile styles for very small screens */
+    .sidebar {
+        padding: 12px;
+    }
+    
+    .info-content .name {
+        font-size: var(--fs4);
+    }
+    
+    .navbar-link {
+        padding: 18px 5px;
+        font-size: 11px;
+    }
+    
+    .article-title {
+        font-size: 22px;
+    }
+    
+    .service-item {
+        padding: 16px;
+    }
+    
+    .testimonials-list {
+        padding: 20px 12px;
+    }
+    
+    .form-input {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+    
+    .mapbox {
+        height: 200px;
+    }
+}
+
 @media (min-width: 580px) {
     :root {
         --fs1: 32px;

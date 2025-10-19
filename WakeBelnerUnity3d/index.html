@@ -20,6 +20,33 @@
         .screenshot { width: 100%; max-width: 500px; display: block; margin: 1em auto; border-radius: 6px; box-shadow: 0 1px 6px #0002; }
         .section-title { margin-top: 2em; font-size: 1.4em; color: #007bff; }
         code { background: #f0f0f5; padding: 2px 6px; border-radius: 4px; }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            header { padding: 1.5rem 0.75rem; }
+            main { margin: 1rem; padding: 1.5rem; }
+            .badge { font-size: 0.8em; display: inline-block; margin: 0.2em; }
+            .section-title { font-size: 1.2em; }
+            table { font-size: 0.9em; overflow-x: auto; display: block; }
+            th, td { padding: 0.5em; }
+            ol, ul { padding-left: 1.2em; }
+            code { font-size: 0.85em; word-break: break-all; }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 1.75rem; }
+            main { margin: 0.5rem; padding: 1rem; }
+            .section-title { font-size: 1.1em; margin-top: 1.5em; }
+            table { font-size: 0.85em; }
+            th, td { padding: 0.4em 0.3em; }
+            .footer { font-size: 0.85em; padding: 0 0.5rem; }
+        }
+        
+        /* Touch-friendly table scrolling */
+        @media (hover: none) and (pointer: coarse) {
+            table { -webkit-overflow-scrolling: touch; }
+        }
     </style>
 </head>
 <body>

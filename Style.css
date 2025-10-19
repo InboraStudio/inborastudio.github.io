@@ -75,7 +75,9 @@
     --lightness: 65%;
   }
   @media (prefers-color-scheme: dark) {
-    --lightness: 75%;
+    :root {
+      --lightness: 75%;
+    }
   }
   ul {
     --step: calc((var(--end) - var(--start)) / (var(--count) - 1));
@@ -349,6 +351,7 @@ body {
   padding-bottom: 1em;      /* Add space below text */
   display: inline-block;
   background: linear-gradient(to right, #fff, #aaa);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -383,4 +386,86 @@ body {
 .profile-info a:hover {
   color: #fff;
   border-bottom: 1px solid #fff;
+}
+
+/* Mobile Responsive Styles for Main Index Page */
+@media (max-width: 768px) {
+  body {
+    height: auto;
+    min-height: 100vh;
+    padding: 20px 10px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+    padding-bottom: 0.5em;
+  }
+
+  .profile-info {
+    padding: 1rem;
+    max-width: 100%;
+    margin: 0 10px;
+  }
+
+  .profile-info p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .profile-info ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .profile-info li {
+    font-size: 0.9rem;
+  }
+  
+  .bear-link {
+    width: 40px;
+    opacity: 0.6;
+  }
+
+  body::before {
+    --size: 30px;
+  }
+  
+  header {
+    padding-inline: 2rem;
+  }
+  
+  section:first-of-type {
+    padding-left: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .profile-info {
+    padding: 0.75rem;
+  }
+
+  .profile-info p {
+    font-size: 0.85rem;
+  }
+
+  .profile-info strong {
+    display: inline-block;
+  }
+  
+  header {
+    padding-inline: 1rem;
+  }
+  
+  section:first-of-type {
+    padding-left: 1rem;
+  }
 }
