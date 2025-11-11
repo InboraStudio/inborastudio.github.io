@@ -401,6 +401,16 @@ avrdude -c arduino -p m328p -P /dev/ttyACM0 -b 115200 -U flash:w:../output/emg_s
                         <li><strong>Signal Range:</strong> 0-5V input, 10-bit resolution</li>
                     </ul>
                 </div>
+
+                 <div class="workflow-card">
+                    <h3>Debugging Techniques</h3>
+                    <ul class="convention-list">
+                        <li><strong>Cycle profiling:</strong> Count ISR instructions in disassembly</li>
+                        <li><strong>Register dumps:</strong> Use <code>g_sample_count</code> volatile counter</li>
+                        <li><strong>Memory verification:</strong> Check .map file for section placement</li>
+                        <li><strong>Saturation detection:</strong> ISR zeros output on ADC clipping</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
