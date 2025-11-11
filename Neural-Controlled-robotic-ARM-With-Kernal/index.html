@@ -402,15 +402,15 @@ avrdude -c arduino -p m328p -P /dev/ttyACM0 -b 115200 -U flash:w:../output/emg_s
                     </ul>
                 </div>
 
-                 <div class="workflow-card">
-                    <h3>Debugging Techniques</h3>
-                    <ul class="convention-list">
-                        <li><strong>Cycle profiling:</strong> Count ISR instructions in disassembly</li>
-                        <li><strong>Register dumps:</strong> Use <code>g_sample_count</code> volatile counter</li>
-                        <li><strong>Memory verification:</strong> Check .map file for section placement</li>
-                        <li><strong>Saturation detection:</strong> ISR zeros output on ADC clipping</li>
-                    </ul>
-                </div>
+               <div class="workflow-card">
+    <h3>Credits</h3>
+    <ul class="convention-list">
+        <li>Kernel Design by <a href="https://github.com/SeoParkjun" target="_blank">Seo Park Jun</a></li>
+        <li>System Staging by <a href="https://github.com/chethanyadav456" target="_blank">Chethan Yadav</a></li>
+        <li>Core System Designer <a href="https://github.com/inborastudio" target="_blank">Dr Chamyoung</a></li>
+    </ul>
+</div>
+
             </div>
         </div>
     </section>
