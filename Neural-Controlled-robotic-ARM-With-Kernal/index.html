@@ -25,6 +25,7 @@
                 <a href="#overview">Overview</a>
                 <a href="#demo">Demo</a>
                 <a href="#architecture">Architecture</a>
+                <a href="#hardware">Hardware</a>
                 <a href="#setup">Setup</a>
                 <a href="#usage">Usage</a>
                 <a href="https://github.com/InboraStudio/Neural-Controlled-robotic-ARM-With-Kernal-" target="_blank" class="btn-github">
@@ -248,6 +249,360 @@ linker/
 
 stm32f407/
 └── src/                            # STM32F407 extensions</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hardware Section -->
+    <section id="hardware" class="section">
+        <div class="container">
+            <h2 class="section-title">Hardware Overview</h2>
+            <p class="section-intro">
+                Neural Robotic Interface Board – NRX-22: A next-gen embedded controller designed for EMG-driven robotic systems
+            </p>
+
+            <!-- Hardware Summary -->
+            <div class="hardware-intro">
+                <p>
+                    The NRX-22 is a specialized embedded controller capable of running neural signal decoding, 
+                    predictive control loops, and real-time adaptive actuation. Built for high-performance EMG processing 
+                    with deterministic latency and minimal power consumption.
+                </p>
+            </div>
+
+            <!-- Central Processing Core -->
+            <div class="hardware-section">
+                <h3 class="hardware-section-title">⚙️ Central Processing Core</h3>
+                <div class="specs-table">
+                    <div class="spec-row">
+                        <span class="spec-key">Chipset</span>
+                        <span class="spec-val">ETC-μCore A21X</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-key">Architecture</span>
+                        <span class="spec-val">64-bit hybrid RISC pipeline</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-key">Base Clock</span>
+                        <span class="spec-val">2.8 GHz (adaptive to 3.6 GHz turbo)</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-key">Bus Width</span>
+                        <span class="spec-val">128-bit internal data highway</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-key">Instruction Cache</span>
+                        <span class="spec-val">512 KB dual-channel L1</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-key">Data Cache</span>
+                        <span class="spec-val">1 MB associative 4-way</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-key">Vector Engine</span>
+                        <span class="spec-val">128-lane SIMD neural unit for EMG spectral analysis</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-key">Operating Voltage</span>
+                        <span class="spec-val">0.9 V – 1.15 V dynamic scaling</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Memory Architecture -->
+            <div class="hardware-section">
+                <h3 class="hardware-section-title">🧠 Memory & Storage Architecture</h3>
+                <div class="memory-details">
+                    <div class="memory-item">
+                        <h4>Main Memory Array</h4>
+                        <p>4× Memory Dies (M1–M4) with 8 sub-memory controllers each (MCU0–MCU7)</p>
+                        <div class="memory-spec">
+                            <div class="ms-row">
+                                <span>Per Controller:</span>
+                                <strong>256 MB LPDDR6E</strong>
+                            </div>
+                            <div class="ms-row">
+                                <span>Lane Width:</span>
+                                <strong>32-bit</strong>
+                            </div>
+                            <div class="ms-row">
+                                <span>Aggregate Bandwidth:</span>
+                                <strong>102 GB/s</strong>
+                            </div>
+                            <div class="ms-row">
+                                <span>Refresh Clock:</span>
+                                <strong>640 MHz per die</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="memory-item">
+                        <h4>Gate Routing & Addressing</h4>
+                        <div class="memory-spec">
+                            <div class="ms-row">
+                                <span>Address Bus (M1):</span>
+                                <code>0x00000000 → 0x0FFFFFFF</code>
+                            </div>
+                            <div class="ms-row">
+                                <span>Bus Interlink Bridge:</span>
+                                <code>0x1A000000 → 0x3FFFFFFF</code>
+                            </div>
+                            <div class="ms-row">
+                                <span>Neural-Cache Bridge (NCB):</span>
+                                <code>0x40000000 → 0x47FFFFFF</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="memory-item">
+                        <h4>Backup & Redundancy Subsystem</h4>
+                        <p>22 auxiliary dies (A1–B22) arranged in dual-tier topology:</p>
+                        <div class="memory-spec">
+                            <div class="ms-row">
+                                <span>Tier A (A1–A11):</span>
+                                <span>Neural state & real-time variable snapshots</span>
+                            </div>
+                            <div class="ms-row">
+                                <span>Tier B (B1–B11):</span>
+                                <span>Checksum, ECC, mirror-buffering</span>
+                            </div>
+                            <div class="ms-row">
+                                <span>Per Backup Chip:</span>
+                                <strong>16 MB SRAM + microcontroller recovery</strong>
+                            </div>
+                            <div class="ms-row">
+                                <span>Backup Frequency:</span>
+                                <strong>12.4 MHz sync per die</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signal & I/O Layer -->
+            <div class="hardware-section">
+                <h3 class="hardware-section-title">📊 Signal & I/O Layer</h3>
+                <div class="io-grid">
+                    <div class="io-card">
+                        <h4>EMG Analog Front-End</h4>
+                        <ul class="io-list">
+                            <li><strong>Channels:</strong> 12-channel AFE</li>
+                            <li><strong>Sampling Rate:</strong> 48 kHz</li>
+                            <li><strong>Resolution:</strong> 16-bit Q15 mode</li>
+                            <li><strong>Address Range:</strong> <code>0x50000000 → 0x5000007C</code></li>
+                        </ul>
+                    </div>
+                    <div class="io-card">
+                        <h4>DAC Output</h4>
+                        <ul class="io-list">
+                            <li><strong>Pairs:</strong> 4 differential pairs</li>
+                            <li><strong>Frequency:</strong> 96 kHz smoothing</li>
+                            <li><strong>Resolution:</strong> 16-bit</li>
+                        </ul>
+                    </div>
+                    <div class="io-card">
+                        <h4>GPIO Controller</h4>
+                        <ul class="io-list">
+                            <li><strong>Lanes:</strong> 48 multiplexed</li>
+                            <li><strong>Address Range:</strong> <code>0x60000000 → 0x600000FF</code></li>
+                            <li><strong>Max Speed:</strong> 480 MHz peripheral clock</li>
+                        </ul>
+                    </div>
+                    <div class="io-card">
+                        <h4>PWM Actuator Bus</h4>
+                        <ul class="io-list">
+                            <li><strong>Loop Frequency:</strong> 1.2 MHz</li>
+                            <li><strong>Jitter Tolerance:</strong> 0.4 µs</li>
+                            <li><strong>Purpose:</strong> Servo actuation control</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clock & Timing -->
+            <div class="hardware-section">
+                <h3 class="hardware-section-title">🕐 Clock & Timing Network</h3>
+                <div class="clock-grid">
+                    <div class="clock-item">
+                        <h4>Master Oscillator</h4>
+                        <p>48 MHz quartz base with 12-stage digital synthesizer</p>
+                        <p style="font-size: 0.95rem; margin-top: 0.5rem;"><strong>Effective Range:</strong> Up to 3.84 GHz</p>
+                    </div>
+                    <div class="clock-item">
+                        <h4>PLL Cluster</h4>
+                        <div class="clock-table">
+                            <div class="clock-row">
+                                <span>Bus Sync</span>
+                                <strong>320 MHz</strong>
+                            </div>
+                            <div class="clock-row">
+                                <span>Neural Compute Core</span>
+                                <strong>2.8 GHz</strong>
+                            </div>
+                            <div class="clock-row">
+                                <span>Peripheral Domain</span>
+                                <strong>480 MHz</strong>
+                            </div>
+                            <div class="clock-row">
+                                <span>AFE Sampling Clock</span>
+                                <strong>48 kHz</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Communication Matrix -->
+            <div class="hardware-section">
+                <h3 class="hardware-section-title">📡 Communication Matrix</h3>
+                <div class="comm-table">
+                    <div class="comm-row">
+                        <span class="comm-protocol">Dual RF Controller</span>
+                        <span class="comm-spec">2.4 GHz + 5.2 GHz band (internal antenna)</span>
+                    </div>
+                    <div class="comm-row">
+                        <span class="comm-protocol">UART</span>
+                        <span class="comm-spec">115200 bps debug line</span>
+                    </div>
+                    <div class="comm-row">
+                        <span class="comm-protocol">SPI Bus</span>
+                        <span class="comm-spec">42 MHz multiplexed</span>
+                    </div>
+                    <div class="comm-row">
+                        <span class="comm-protocol">I²C Bus</span>
+                        <span class="comm-spec">400 kHz (EEPROM + thermal sensor)</span>
+                    </div>
+                    <div class="comm-row">
+                        <span class="comm-protocol">CAN-Bus Gateway</span>
+                        <span class="comm-spec">2 Mbps (robotic actuator sync)</span>
+                    </div>
+                    <div class="comm-row">
+                        <span class="comm-protocol">EtherNet PHY</span>
+                        <span class="comm-spec">1 GbE full-duplex, hardware offload</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Power Network -->
+            <div class="hardware-section">
+                <h3 class="hardware-section-title">⚡ Power Network</h3>
+                <div class="power-grid">
+                    <div class="power-card">
+                        <h4>Voltage Rails</h4>
+                        <div class="voltage-list">
+                            <div class="voltage-item">
+                                <span class="voltage-label">Input Power</span>
+                                <span class="voltage-value">3.3 V DC regulated</span>
+                            </div>
+                            <div class="voltage-item">
+                                <span class="voltage-label">Core Rails</span>
+                                <span class="voltage-value">1.15 V</span>
+                            </div>
+                            <div class="voltage-item">
+                                <span class="voltage-label">Memory Rails</span>
+                                <span class="voltage-value">1.8 V</span>
+                            </div>
+                            <div class="voltage-item">
+                                <span class="voltage-label">I/O Rails</span>
+                                <span class="voltage-value">3.3 V</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="power-card">
+                        <h4>Noise Isolation</h4>
+                        <ul class="power-list">
+                            <li>4 µF tantalum capacitors per subsystem</li>
+                            <li>220 nH inductors per subsystem</li>
+                            <li>Routed through Layer 3 PCB copper plane</li>
+                            <li>Multi-point power distribution</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thermal & Debug -->
+            <div class="hardware-section">
+                <h3 class="hardware-section-title">🌡️ Thermal & Debug Layer</h3>
+                <div class="debug-items">
+                    <div class="debug-item">
+                        <h4>Thermal Monitoring</h4>
+                        <p>8 miniature thermal diodes linked to sensor controller</p>
+                        <p style="font-size: 0.9rem; color: #64748b; margin-top: 0.5rem;">Address: <code>0x70000000</code></p>
+                    </div>
+                    <div class="debug-item">
+                        <h4>Debug Interfaces</h4>
+                        <p>Built-in JTAG & SWD debug ports (top row header)</p>
+                    </div>
+                    <div class="debug-item">
+                        <h4>Real-Time Trace Buffer (RTB)</h4>
+                        <p>512 KB for ISR profiling and DMA overflow diagnostics</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Firmware Integration -->
+            <div class="hardware-section">
+                <h3 class="hardware-section-title">💾 Firmware Integration</h3>
+                <div class="firmware-layout">
+                    <p style="margin-bottom: 1.5rem; color: #64748b;">
+                        The firmware kernel maps directly to hardware address spaces for optimal performance:
+                    </p>
+                    <div class="firmware-item">
+                        <div class="fw-addr">0x80000000</div>
+                        <div class="fw-info">
+                            <h4>neural_matrix_ops.s</h4>
+                            <p>Runs directly on vector unit</p>
+                        </div>
+                    </div>
+                    <div class="firmware-item">
+                        <div class="fw-addr">0x00000000</div>
+                        <div class="fw-info">
+                            <h4>interrupt_vector_handler.s</h4>
+                            <p>Fast interrupt dispatch</p>
+                        </div>
+                    </div>
+                    <div class="firmware-item">
+                        <div class="fw-addr">Core Timer #2</div>
+                        <div class="fw-info">
+                            <h4>real_time_scheduler.s</h4>
+                            <p>Executes @ 1 µs tick</p>
+                        </div>
+                    </div>
+                    <div class="firmware-item">
+                        <div class="fw-addr">0xFFF00000</div>
+                        <div class="fw-info">
+                            <h4>syscalls.c</h4>
+                            <p>Runtime stack frame bridging</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Metrics -->
+            <div class="performance-section">
+                <h3 class="hardware-section-title">📈 Performance Metrics</h3>
+                <div class="perf-grid">
+                    <div class="perf-card">
+                        <div class="perf-value">184 GFLOPs</div>
+                        <div class="perf-label">Peak Compute</div>
+                        <div class="perf-detail">Neural operations equivalent</div>
+                    </div>
+                    <div class="perf-card">
+                        <div class="perf-value">2.1 ms</div>
+                        <div class="perf-label">EMG Response Latency</div>
+                        <div class="perf-detail">Input-to-actuator delay</div>
+                    </div>
+                    <div class="perf-card">
+                        <div class="perf-value">93%</div>
+                        <div class="perf-label">Bus Efficiency</div>
+                        <div class="perf-detail">Sustained throughput</div>
+                    </div>
+                    <div class="perf-card">
+                        <div class="perf-value">1.8 W</div>
+                        <div class="perf-label">Power Draw</div>
+                        <div class="perf-detail">Average (2.3 W max)</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
