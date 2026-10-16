@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Quin OS 2 — Independent 64-Bit Operating System | Inbora Studio</title>
+  <meta name="title" content="Quin OS 2 — Independent 64-Bit Operating System | Inbora Studio">
+  <meta name="description" content="Quin OS 2 is an independent, freestanding 64-bit x86_64 operating system crafted from bare metal over 5 years of research (2021-2026) by Inbora Studio under lead researcher Dr Chamyoung (Alok). Features preemptive SMP scheduling, QWM compositor, RFC 793 TCP/IP stack, and musl libc userspace.">
+  <meta name="keywords" content="Quin OS, Quin OS 2, XuNetOS, Inbora Studio, Dr Chamyoung, Alok, 64-bit OS, x86_64 Operating System, Hobby OS, Custom Kernel, Bare Metal, QWM, QDS, Operating System Development, OSDev, musl libc, preemptive SMP">
+  <meta name="author" content="Dr Chamyoung (Alok), Inbora Studio">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0B0F17">
+  <link rel="canonical" href="https://inborastudio.github.io/QuinOS/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://inborastudio.github.io/QuinOS/">
+  <meta property="og:title" content="Quin OS 2 — Independent 64-Bit Operating System | Inbora Studio">
+  <meta property="og:description" content="Freestanding 64-bit x86_64 OS developed over 5 years by Inbora Studio and Dr Chamyoung (Alok). Preemptive multi-core scheduler, custom QWM window compositor, bare-metal TCP stack, and Ring-3 musl userspace.">
+  <meta property="og:image" content="./assets/wallpaper.jpg">
+  <meta property="og:site_name" content="Quin OS Documentation & Showcase">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://inborastudio.github.io/QuinOS/">
+  <meta property="twitter:title" content="Quin OS 2 — Independent 64-Bit Operating System | Inbora Studio">
+  <meta property="twitter:description" content="5-year bare-metal operating system engineering journey by Inbora Studio and lead researcher Dr Chamyoung (Alok).">
+  <meta property="twitter:image" content="./assets/wallpaper.jpg">
+
+  <!-- Schema.org Structured Data (JSON-LD) for Search Engine Optimization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://inborastudio.github.io/QuinOS/#software",
+        "name": "Quin OS 2",
+        "alternateName": "Quin OS 64-Bit",
+        "operatingSystem": "x86_64 (AMD64)",
+        "applicationCategory": "OperatingSystem",
+        "creator": {
+          "@type": "Organization",
+          "@id": "https://inborastudio.github.io/#organization",
+          "name": "Inbora Studio",
+          "url": "https://inborastudio.github.io/"
+        },
+        "author": {
+          "@type": "Person",
+          "@id": "https://inborastudio.github.io/#author",
+          "name": "Dr Chamyoung",
+          "alternateName": "Alok",
+          "jobTitle": "Lead Operating System Researcher & System Architect",
+          "affiliation": {
+            "@id": "https://inborastudio.github.io/#organization"
+          }
+        },
+        "dateCreated": "2021",
+        "dateModified": "2026-10-16",
+        "description": "Quin OS 2 is an independent 64-bit operating system for x86_64, built from bare metal over 5 years of research by Inbora Studio and lead researcher Dr Chamyoung (Alok). Features preemptive SMP scheduling, QWM compositor, complete RFC 793 TCP/IP stack, and musl libc userspace.",
+        "softwareVersion": "2.1.0-beta",
+        "isAccessibleForFree": true,
+        "keywords": "Operating System, x86_64, Kernel, Bare Metal, QWM, Inbora Studio, Dr Chamyoung, Alok, XuNetOS"
+      },
+      {
+        "@type": "TechArticle",
+        "@id": "https://inborastudio.github.io/QuinOS/#article",
+        "headline": "Quin OS 2: Architecture, Implementation, and Empirical Evaluation of a Freestanding 64-Bit Monolithic-to-Isolated Operating System",
+        "description": "Comprehensive engineering whitepaper covering 5 years of operating system research, memory management, SMP scheduling, graphics composition, and bare-metal networking by Inbora Studio.",
+        "author": {
+          "@type": "Person",
+          "name": "Dr Chamyoung (Alok)",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "Inbora Studio"
+          }
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Inbora Studio",
+          "url": "https://inborastudio.github.io/"
+        },
+        "datePublished": "2021-06-01",
+        "dateModified": "2026-10-16",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Inbora Studio",
+            "item": "https://inborastudio.github.io/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "XuNet OS (32-Bit Prototype)",
+            "item": "https://inborastudio.github.io/XuNetOS"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Quin OS 2 (64-Bit)",
+            "item": "https://inborastudio.github.io/QuinOS/"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="top">
+    <div class="nav-container">
+      <a href="#top" class="brand">
+        <div class="brand-badge">Q2</div>
+        <div class="brand-text">
+          <span class="brand-title">Quin OS 2</span>
+          <span class="brand-sub">64-Bit Freestanding OS</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#showcase">Showcase</a></li>
+        <li><a href="#timeline">5-Year Timeline</a></li>
+        <li><a href="#docs">Documentation</a></li>
+        <li><a href="#comparisons">Benchmarks</a></li>
+        <li><a href="#apps">Applications</a></li>
+        <li><a href="#paper">Whitepaper</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Live Theme Accent Switcher -->
+        <div class="accent-picker" title="Switch Theme Accent">
+          <button class="accent-btn active" data-color="blue" style="background:#007AFF;" aria-label="Azure Blue"></button>
+          <button class="accent-btn" data-color="green" style="background:#10B981;" aria-label="Emerald Green"></button>
+          <button class="accent-btn" data-color="purple" style="background:#8B5CF6;" aria-label="Cyber Purple"></button>
+          <button class="accent-btn" data-color="orange" style="background:#F59E0B;" aria-label="Sunset Orange"></button>
+          <button class="accent-btn" data-color="red" style="background:#EF4444;" aria-label="Crimson Red"></button>
+        </div>
+
+        <a href="https://github.com/InboraStudio/Quin-1-OS" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero container" id="showcase">
+    <div class="hero-tag">
+      <span class="dot"></span>
+      <span>Quin OS 2 Beta — 64-Bit x86_64 Desktop Architecture</span>
+    </div>
+
+    <h1 class="hero-title">
+      Crafted in Bare Metal.<br>
+      <span class="gradient-text">Engineered for Independence.</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      An independent 64-bit operating system for x86_64, built from scratch in C and Assembly. Developed over a 5-year evolutionary journey by Inbora Studio under lead researcher Dr Chamyoung (Alok), featuring a preemptive multi-core scheduler, custom QWM window compositor, bare-metal TCP/IP stack, and a thriving userspace.
+    </p>
+
+    <!-- Tasteful Meta Strip for Natural Search Snippet Extraction -->
+    <div class="hero-meta-strip">
+      <div class="hero-meta-item">
+        <span>Architect:</span>
+        <strong>Dr Chamyoung (Alok)</strong>
+      </div>
+      <div class="hero-meta-item">
+        <span>Studio:</span>
+        <strong>Inbora Studio</strong>
+      </div>
+      <div class="hero-meta-item">
+        <span>Research Timeline:</span>
+        <strong>5 Years (2021 – 2026)</strong>
+      </div>
+      <div class="hero-meta-item">
+        <span>Evolutionary Predecessor:</span>
+        <a href="https://inborastudio.github.io/XuNetOS" target="_blank" rel="noopener noreferrer">XuNet OS (32-Bit)</a>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a href="#docs" class="btn btn-primary">Explore Kernel Documentation</a>
+      <a href="#timeline" class="btn btn-secondary">View 5-Year Timeline</a>
+      <a href="#paper" class="btn btn-secondary">Read Research Whitepaper</a>
+    </div>
+
+    <!-- Interactive OS Window Simulator -->
+    <div class="os-showcase">
+      <div class="os-window">
+        <div class="os-window-header">
+          <div class="os-traffic-lights">
+            <span class="os-dot os-dot-red" title="Close Window"></span>
+            <span class="os-dot os-dot-yellow" title="Minimize Window"></span>
+            <span class="os-dot os-dot-green" title="Maximize Window"></span>
+          </div>
+
+          <div class="os-window-title">
+            <span>Quin OS Desktop Workspace</span>
+            <span class="badge">2560×1440 HiDPI</span>
+          </div>
+
+          <div class="os-window-tabs">
+            <button class="os-tab-btn active" data-view="terminal">Terminal (qsh)</button>
+            <button class="os-tab-btn" data-view="browser">Browser</button>
+            <button class="os-tab-btn" data-view="editor">QuinDev IDE</button>
+            <button class="os-tab-btn" data-view="sysmon">SysMon</button>
+          </div>
+        </div>
+
+        <div class="os-window-body" id="os-window-body" style="background-image: url('./assets/wallpaper.jpg');">
+          <div class="os-desktop">
+            
+            <!-- Desktop Application Grid Preview -->
+            <div class="os-desktop-grid">
+              <div class="os-desktop-icon" onclick="switchSimulatorView('terminal')">
+                <img src="./assets/icons/Terminal.png" alt="Terminal" onerror="this.src='./assets/icons/App.png'">
+                <span>Terminal</span>
+              </div>
+              <div class="os-desktop-icon" onclick="switchSimulatorView('browser')">
+                <img src="./assets/icons/Browser.png" alt="Browser" onerror="this.src='./assets/icons/App.png'">
+                <span>Browser</span>
+              </div>
+              <div class="os-desktop-icon" onclick="switchSimulatorView('editor')">
+                <img src="./assets/icons/Quin Dev.png" alt="QuinDev IDE" onerror="this.src='./assets/icons/App.png'">
+                <span>QuinDev</span>
+              </div>
+              <div class="os-desktop-icon" onclick="switchSimulatorView('sysmon')">
+                <img src="./assets/icons/System Monitor.png" alt="System Monitor" onerror="this.src='./assets/icons/App.png'">
+                <span>SysMon</span>
+              </div>
+              <div class="os-desktop-icon">
+                <img src="./assets/icons/File Manager.png" alt="File Manager" onerror="this.src='./assets/icons/App.png'">
+                <span>Files</span>
+              </div>
+              <div class="os-desktop-icon">
+                <img src="./assets/icons/Settings.png" alt="Settings" onerror="this.src='./assets/icons/App.png'">
+                <span>Settings</span>
+              </div>
+              <div class="os-desktop-icon">
+                <img src="./assets/icons/Physics.png" alt="Physics" onerror="this.src='./assets/icons/App.png'">
+                <span>Physics</span>
+              </div>
+              <div class="os-desktop-icon">
+                <img src="./assets/icons/Video.png" alt="Video Player" onerror="this.src='./assets/icons/App.png'">
+                <span>Video</span>
+              </div>
+            </div>
+
+            <!-- Active Window Inside Desktop Simulation -->
+            <div class="os-inner-card" id="os-inner-card">
+              <div class="os-inner-header">
+                <span id="os-inner-title">qsh — Quin Shell (Ring-3 musl)</span>
+                <span style="color:#64748B;">PID: 12 | Ring-3</span>
+              </div>
+              <div class="os-inner-content" id="os-inner-content">
+                <div id="cli-output">
+<span class="cyan">quin-os-2 login:</span> root (uid=0)
+<span class="green">Welcome to Quin OS 2 (64-bit x86_64)</span>
+* Freestanding monolithic kernel + Ring-3 isolated userspace
+* Type or click any command below to probe kernel internals.
+                </div>
+                <div class="os-cli-input-row">
+                  <span class="os-cli-prompt">root@quin:~#</span>
+                  <div class="os-cli-btn-group">
+                    <button class="os-cli-tag" data-cmd="uname -a">uname -a</button>
+                    <button class="os-cli-tag" data-cmd="sysinfo">sysinfo</button>
+                    <button class="os-cli-tag" data-cmd="meminfo">meminfo</button>
+                    <button class="os-cli-tag" data-cmd="netstat">netstat</button>
+                    <button class="os-cli-tag" data-cmd="apps">apps</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating Desktop Dock -->
+            <div class="os-dock">
+              <div class="os-dock-item active" onclick="switchSimulatorView('terminal')" title="Terminal">
+                <img src="./assets/icons/Terminal.png" alt="Terminal" onerror="this.src='./assets/icons/App.png'">
+              </div>
+              <div class="os-dock-item" onclick="switchSimulatorView('browser')" title="Browser">
+                <img src="./assets/icons/Browser.png" alt="Browser" onerror="this.src='./assets/icons/App.png'">
+              </div>
+              <div class="os-dock-item" onclick="switchSimulatorView('editor')" title="QuinDev IDE">
+                <img src="./assets/icons/Quin Dev.png" alt="QuinDev" onerror="this.src='./assets/icons/App.png'">
+              </div>
+              <div class="os-dock-item" onclick="switchSimulatorView('sysmon')" title="System Monitor">
+                <img src="./assets/icons/System Monitor.png" alt="SysMon" onerror="this.src='./assets/icons/App.png'">
+              </div>
+              <div class="os-dock-item" title="File Manager">
+                <img src="./assets/icons/File Manager.png" alt="Files" onerror="this.src='./assets/icons/App.png'">
+              </div>
+              <div class="os-dock-item" title="Settings">
+                <img src="./assets/icons/Settings.png" alt="Settings" onerror="this.src='./assets/icons/App.png'">
+              </div>
+              <div class="os-dock-item" title="Music Player">
+                <img src="./assets/icons/Music Player.png" alt="Music" onerror="this.src='./assets/icons/App.png'">
+              </div>
+              <div class="os-dock-sep"></div>
+              <div class="os-dock-clock" id="os-dock-clock">00:00:00</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Key Architectural Numbers -->
+  <section class="container">
+    <div class="stats-strip">
+      <div class="stat-card">
+        <div class="stat-number">&lt; 1.8s</div>
+        <div class="stat-label">Cold Boot Time to Desktop</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">42 MB</div>
+        <div class="stat-label">Total Idle RAM Footprint</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">60+</div>
+        <div class="stat-label">Implemented POSIX Syscalls</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">5 Years</div>
+        <div class="stat-label">Continuous Research & Coding</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5-Year Evolution Timeline Section -->
+  <section id="timeline" class="container">
+    <div class="section-header">
+      <span class="section-tag">Historical Progression</span>
+      <h2 class="section-title">The 5-Year Evolutionary Journey</h2>
+      <p class="section-desc">
+        From a 32-bit educational prototype to an advanced 64-bit multi-core desktop operating system. Research and implementation led by Dr Chamyoung (Alok) at Inbora Studio (2021 – 2026).
+      </p>
+    </div>
+
+    <div class="timeline">
+      <!-- 2021 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-badge">2021 • Year 1</span>
+          <h3 class="timeline-title">XuNet OS Genesis (32-Bit Bare-Metal Prototype)</h3>
+          <p class="timeline-text">
+            Research commenced with XuNet OS, an educational 32-bit x86 operating system. Implemented real mode to protected mode switching, 8259 PIC interrupt remapping, FAT12 floppy filesystem, basic VESA VBE 640×480 graphics, and custom keyboard scancode decoders. Established fundamental low-level systems knowledge.
+          </p>
+          <div class="timeline-pills">
+            <span class="timeline-pill">16-to-32-bit Switch</span>
+            <span class="timeline-pill">8259 PIC</span>
+            <span class="timeline-pill">FAT12</span>
+            <span class="timeline-pill">VESA VBE</span>
+            <span class="timeline-pill">XuNet OS 32-Bit</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2022 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-badge">2022 • Year 2</span>
+          <h3 class="timeline-title">The 64-Bit Architecture Pivot (Quin OS 1)</h3>
+          <p class="timeline-text">
+            Re-architected from the ground up for x86_64 Long Mode. Formulated Multiboot 1 and Multiboot 2 compliance in <code>boot.asm</code>, 4-level PML4 paging tables with 2 MB huge identity mapping, Higher-Half Direct Map (HHDM at <code>0xFFFF800000000000</code>), 256-gate IDT, serial COM1 logging, and initial Local APIC discovery.
+          </p>
+          <div class="timeline-pills">
+            <span class="timeline-pill">x86_64 Long Mode</span>
+            <span class="timeline-pill">PML4 4-Level Paging</span>
+            <span class="timeline-pill">HHDM</span>
+            <span class="timeline-pill">Multiboot2</span>
+            <span class="timeline-pill">256-Gate IDT</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2023 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-badge">2023 • Year 3</span>
+          <h3 class="timeline-title">Kernel Core & Multiprocessing Infrastructure</h3>
+          <p class="timeline-text">
+            Engineered the Physical Memory Manager (order 0–10 Buddy Allocator, 4 KB to 4 MB frames), Virtual Memory Manager with Copy-on-Write <code>sys_fork()</code> and huge page splitting, ACPI MADT parsing, AP INIT-SIPI-SIPI wake-up trampoline at <code>0x8000</code>, preemptive priority round-robin scheduler with 100 Hz PIT quantum, and Virtual Filesystem (VFS) mount table.
+          </p>
+          <div class="timeline-pills">
+            <span class="timeline-pill">Buddy Allocator (Orders 0-10)</span>
+            <span class="timeline-pill">CoW Fork</span>
+            <span class="timeline-pill">ACPI MADT SMP</span>
+            <span class="timeline-pill">PIT 100 Hz</span>
+            <span class="timeline-pill">VFS Slab Pool</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2024 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-badge">2024 • Year 4</span>
+          <h3 class="timeline-title">Desktop Compositor & Graphics Breakthrough</h3>
+          <p class="timeline-text">
+            Created the double-buffered Quin Display Server (QDS), coverage-based integer anti-aliased geometry engine (QAA), floating Quin Window Manager (QWM) with 32 concurrent windows and macOS-style traffic light chrome, QuinUI widget toolkit, VirtIO-GPU 2D modern PCI driver supporting 2560×1440 resolution, and persistent Ext2 read/write on VirtIO-Blk.
+          </p>
+          <div class="timeline-pills">
+            <span class="timeline-pill">QDS Double Buffer</span>
+            <span class="timeline-pill">QAA Acrylic Blur</span>
+            <span class="timeline-pill">QWM Floating WM</span>
+            <span class="timeline-pill">VirtIO-GPU 2560x1440</span>
+            <span class="timeline-pill">Ext2 Read/Write</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2025 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-badge">2025 • Year 5</span>
+          <h3 class="timeline-title">Bare-Metal Network Stack, Audio & Userspace Groundwork</h3>
+          <p class="timeline-text">
+            Authored an RFC 793 Transmission Control Protocol (TCP) from scratch in pure C with 3-way handshake, sliding window rings, and Jacobson/Karels RTO estimation. Integrated DHCP, DNS, HTTP client with gzip decoding, SNTP clock sync, AC97 DMA 16-bit stereo audio, SHA-256 user authentication, and initial Ring-3 userspace ELF loading linked against cross-compiled musl libc 1.2.4.
+          </p>
+          <div class="timeline-pills">
+            <span class="timeline-pill">RFC 793 TCP Engine</span>
+            <span class="timeline-pill">AC97 DMA Audio</span>
+            <span class="timeline-pill">musl libc 1.2.4</span>
+            <span class="timeline-pill">SNTP Clock Sync</span>
+            <span class="timeline-pill">SysV AMD64 ABI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-badge">2026 • Current</span>
+          <h3 class="timeline-title">Quin OS 2: Ring-3 Isolation & Rich Ecosystem</h3>
+          <p class="timeline-text">
+            Expanded POSIX syscall matrix to 60+ entries. Ported litehtml box-model layout + QuickJS-ng ES2020 JavaScript engine for real web browsing, MPEG-1 video playback, Chipmunk2D physics simulation, Stockfish chess, DOOM and Quake 1 engines. Created the QuinDev in-OS IDE with Tiny C Compiler (TCC) to enable software development directly inside Quin OS. Ongoing migration of QWM into a privileged userspace compositor server over shared memory.
+          </p>
+          <div class="timeline-pills">
+            <span class="timeline-pill">litehtml + QuickJS</span>
+            <span class="timeline-pill">MPEG-1 Video Player</span>
+            <span class="timeline-pill">Chipmunk2D Physics</span>
+            <span class="timeline-pill">QuinDev IDE & TCC</span>
+            <span class="timeline-pill">60+ POSIX Syscalls</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparative Benchmarks (Quin OS vs Linux vs TempleOS) -->
+  <section id="comparisons" class="container">
+    <div class="section-header">
+      <span class="section-tag">Architectural Benchmarks</span>
+      <h2 class="section-title">Comparative Kernel Analysis</h2>
+      <p class="section-desc">
+        How Quin OS 2 compares structurally and architecturally against the industry-standard Linux Kernel and Terry A. Davis's legendary TempleOS.
+      </p>
+    </div>
+
+    <!-- Quin OS vs Linux Kernel -->
+    <h3 style="margin-bottom: 0.75rem; color:var(--text-main);">1. Quin OS 2 vs. Linux Kernel (v6.x)</h3>
+    <div class="table-wrapper">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Quin OS 2</th>
+            <th>Linux Kernel (v6.x)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Kernel Architecture</strong></td>
+            <td><span class="badge-quin">Monolithic transitioning to Isolated Ring-3 Server</span></td>
+            <td>Modular Monolithic with Loadable Kernel Modules (LKM)</td>
+          </tr>
+          <tr>
+            <td><strong>Codebase Size</strong></td>
+            <td><strong>~300,000 lines</strong> (Kernel, Drivers, GUI, Userspace)</td>
+            <td>35,000,000+ lines (Over 30 years of legacy code)</td>
+          </tr>
+          <tr>
+            <td><strong>Cold Boot to Desktop</strong></td>
+            <td><span class="badge-quin">&lt; 1.8 seconds</span> (Direct BIOS/GRUB to QWM)</td>
+            <td>8.0 – 25.0 seconds (initramfs, systemd, display manager)</td>
+          </tr>
+          <tr>
+            <td><strong>Idle RAM Consumption</strong></td>
+            <td><span class="badge-quin">~42 MB Total RAM</span></td>
+            <td>~500 MB – 1.5 GB RAM with desktop environment</td>
+          </tr>
+          <tr>
+            <td><strong>Physical Memory Manager</strong></td>
+            <td>Order 0–10 Buddy Allocator with 32-bit atomic CoW refcounts</td>
+            <td>Multi-tier Buddy Allocator with SLUB/SLAB/SLOB caches</td>
+          </tr>
+          <tr>
+            <td><strong>Virtual Memory Manager</strong></td>
+            <td>4-level paging, HHDM at <code>0xFFFF800000000000</code>, CoW fork</td>
+            <td>4-level & 5-level paging, VMA trees, kswapd, hugepages</td>
+          </tr>
+          <tr>
+            <td><strong>Task Scheduler</strong></td>
+            <td>Preemptive 3-Priority Round-Robin + LAPIC & 100 Hz PIT</td>
+            <td>Completely Fair Scheduler (CFS) / EEVDF</td>
+          </tr>
+          <tr>
+            <td><strong>Graphics Subsystem</strong></td>
+            <td>In-tree QDS double-buffered compositor & floating QWM</td>
+            <td>Userspace client-server model (X11 / Wayland Compositor)</td>
+          </tr>
+          <tr>
+            <td><strong>GUI Widget Toolkit</strong></td>
+            <td>Native QuinUI hand-drawn vector widgets (zero-decode)</td>
+            <td>External third-party libraries (GTK, Qt, wxWidgets)</td>
+          </tr>
+          <tr>
+            <td><strong>Network Stack</strong></td>
+            <td>Freestanding in-tree C RFC 793 TCP/IP (~4,000 lines)</td>
+            <td>Complex multi-protocol stack with eBPF, Netfilter, IPsec</td>
+          </tr>
+          <tr>
+            <td><strong>C Standard Library</strong></td>
+            <td>musl libc 1.2.4 (statically compiled ELF64 binaries)</td>
+            <td>GNU C Library (glibc) or musl libc</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Quin OS vs TempleOS -->
+    <h3 style="margin: 2.5rem 0 0.75rem 0; color:var(--text-main);">2. Quin OS 2 vs. TempleOS</h3>
+    <div class="table-wrapper">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Quin OS 2</th>
+            <th>TempleOS (Terry A. Davis)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Primary Philosophy</strong></td>
+            <td><span class="badge-quin">Modern, secure, isolated, multitasking desktop OS</span></td>
+            <td>Divine comedy / biblical temple recreation; single-purpose</td>
+          </tr>
+          <tr>
+            <td><strong>CPU Privilege Ring</strong></td>
+            <td><span class="badge-quin">Strict Ring-0 / Ring-3 CPU isolation (SYSCALL/SYSRET)</span></td>
+            <td>Zero ring separation: All code executes in Ring-0</td>
+          </tr>
+          <tr>
+            <td><strong>Memory Protection</strong></td>
+            <td><span class="badge-quin">PML4 4-Level Paging, NX/XD bit, CoW, ASLR, Canaries</span></td>
+            <td>Identity-mapped flat memory; zero memory protection</td>
+          </tr>
+          <tr>
+            <td><strong>Multi-Core SMP</strong></td>
+            <td>Preemptive round-robin across cores with per-CPU run-queues</td>
+            <td>Master/slave core model; APs wait for HolyC job queues</td>
+          </tr>
+          <tr>
+            <td><strong>Display Resolution</strong></td>
+            <td><span class="badge-quin">2560×1440 True Color (32-bit ARGB) Double-Buffered</span></td>
+            <td>640×480 16-Color fixed VGA palette</td>
+          </tr>
+          <tr>
+            <td><strong>Graphics & Font Engine</strong></td>
+            <td>QAA sub-pixel anti-aliasing, rounded rects, acrylic blur</td>
+            <td>Fixed 8×8 bitmap text font grid</td>
+          </tr>
+          <tr>
+            <td><strong>Networking Capability</strong></td>
+            <td><span class="badge-quin">Full RFC 793 TCP/IP (Ethernet, DHCP, DNS, HTTP, NTP)</span></td>
+            <td>Zero networking support by theological design</td>
+          </tr>
+          <tr>
+            <td><strong>Filesystem Architecture</strong></td>
+            <td>Ext2 (read/write), FAT32, USTAR, procfs, devfs, shmfs</td>
+            <td>RedSea 64-bit filesystem, FAT32, ISO9660</td>
+          </tr>
+          <tr>
+            <td><strong>Audio Output</strong></td>
+            <td>16-bit stereo PCM audio via AC97 DMA controller</td>
+            <td>Single-voice PC speaker frequency modulation</td>
+          </tr>
+          <tr>
+            <td><strong>Programming Language</strong></td>
+            <td>Standard C99 / Assembly (GCC / NASM / TinyCC)</td>
+            <td>HolyC (custom C dialect with in-kernel JIT compilation)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Comprehensive Codebase Documentation Hub -->
+  <section id="docs" class="container">
+    <div class="section-header">
+      <span class="section-tag">Deep Codebase Reference</span>
+      <h2 class="section-title">The Complete Architecture Guide</h2>
+      <p class="section-desc">
+        Exhaustive technical documentation grounded directly in the Quin OS source files. Search any kernel subsystem, algorithm, or data structure.
+      </p>
+    </div>
+
+    <div class="docs-layout">
+      <!-- Sticky Sidebar Navigation -->
+      <aside class="docs-sidebar">
+        <div class="docs-search-box">
+          <input type="text" id="docs-search" class="docs-search-input" placeholder="Search codebase docs..." aria-label="Search documentation">
+        </div>
+
+        <div class="docs-nav-group">
+          <div class="docs-nav-title">Core Subsystems</div>
+          <ul class="docs-nav-list">
+            <li class="docs-nav-item"><a href="#doc-boot" class="active">Boot & Long Mode</a></li>
+            <li class="docs-nav-item"><a href="#doc-memory">Memory (PMM & VMM)</a></li>
+            <li class="docs-nav-item"><a href="#doc-scheduler">SMP Scheduler & Slicing</a></li>
+            <li class="docs-nav-item"><a href="#doc-syscalls">Syscalls & Security</a></li>
+            <li class="docs-nav-item"><a href="#doc-graphics">Graphics (QDS, QAA, QWM)</a></li>
+            <li class="docs-nav-item"><a href="#doc-network">Bare-Metal TCP/IP Stack</a></li>
+            <li class="docs-nav-item"><a href="#doc-storage">Ext2 Filesystem & VFS</a></li>
+            <li class="docs-nav-item"><a href="#doc-drivers">Hardware Drivers</a></li>
+            <li class="docs-nav-item"><a href="#doc-userspace">Ring-3 & musl libc</a></li>
+            <li class="docs-nav-item"><a href="#doc-ports">Engines & Ports</a></li>
+          </ul>
+        </div>
+
+        <div class="docs-nav-group">
+          <div class="docs-nav-title">Guides & Reference</div>
+          <ul class="docs-nav-list">
+            <li class="docs-nav-item"><a href="#doc-usage">Pro Tips & Shortcuts</a></li>
+            <li class="docs-nav-item"><a href="#doc-compiler">In-OS TCC Compiler</a></li>
+            <li class="docs-nav-item"><a href="#doc-roadmap">Quin OS 2 Roadmap</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Documentation Content Area -->
+      <main class="docs-content">
+        
+        <!-- 1. Boot & Long Mode -->
+        <article class="doc-block" id="doc-boot">
+          <header class="doc-block-header">
+            <span class="doc-block-badge">kernel/arch/x86_64/boot.asm</span>
+            <h3>1. Bootstrapping & 64-Bit Long Mode Transition</h3>
+          </header>
+          <p>
+            Quin OS boots via GRUB2 adhering to both Multiboot 1 (<code>0x1BADB002</code>) and Multiboot 2 (<code>0xE85250D6</code>) standards. The transition from 32-bit protected mode into 64-bit Long Mode is orchestrated in <code>boot.asm</code>:
+          </p>
+          <ul style="margin: 0.75rem 0 1.0rem 1.5rem; color:var(--text-muted); font-size:0.95rem;">
+            <li>Verifies CPUID and Long Mode capability via <code>cpuid</code> function <code>0x80000001</code> (bit 29 of EDX).</li>
+            <li>Constructs an initial identity page table mapping the first 1 GB using 2 MB huge pages (Present, Writable, Huge flag <code>0x83</code>).</li>
+            <li>Maps PML4 index 256 to establish the Higher-Half Direct Map (HHDM) starting at virtual address <code>0xFFFF800000000000</code>.</li>
+            <li>Enables PAE (Physical Address Extension) in <code>CR4.PAE</code>, activates Long Mode in <code>IA32_EFER.LME</code>, and engages paging in <code>CR0.PG</code>.</li>
+            <li>Executes a far jump into the 64-bit Code Segment selector (<code>0x08</code>) and branches to <code>kernel_main(magic, mboot_addr)</code> in <code>kernel/src/main.c</code>.</li>
+          </ul>
+
+          <div class="code-toolbar">
+            <span>boot.asm — Paging & Far Jump</span>
+            <button class="code-copy-btn" data-target="code-boot">Copy Code</button>
+          </div>
+          <pre class="has-toolbar" id="code-boot"><code>; Load PML4 physical base address into CR3
+mov eax, boot_pml4
+mov cr3, eax
+
+; Enable PAE (bit 5 of CR4)
+mov eax, cr4
+or  eax, 1 &lt;&lt; 5
+mov cr4, eax
+
+; Enable Long Mode in EFER MSR (0xC0000080, bit 8)
+mov ecx, 0xC0000080
+rdmsr
+or  eax, 1 &lt;&lt; 8
+wrmsr
+
+; Enable Paging (bit 31) and Protection (bit 0) in CR0
+mov eax, cr0
+or  eax, (1 &lt;&lt; 31) | (1 &lt;&lt; 0)
+mov cr0, eax
+
+; Far jump into 64-bit code segment
+jmp 0x08:long_mode_entry</code></pre>
+        </article>
+
+        <!-- 2. Memory (PMM & VMM) -->
+        <article class="doc-block" id="doc-memory">
+          <header class="doc-block-header">
+            <span class="doc-block-badge">kernel/src/pmm.c & kernel/src/vmm.c</span>
+            <h3>2. Memory Architecture: Buddy Allocator & 4-Level Paging</h3>
+          </header>
+          <p>
+            Memory is managed through a layered physical/virtual architecture:
+          </p>
+          <p style="margin-top:0.5rem;">
+            <strong>Physical Memory Manager (PMM):</strong> Implements a Buddy Allocator managing orders 0 through 10 (4 KB to 4 MB contiguous blocks). Frame state is recorded in a bitmap, and free blocks are tracked via embedded <code>free_block_t</code> descriptors guarded by magic value <code>0x12345678U</code>. Frame sharing across Copy-on-Write forks is tracked using a 32-bit reference counter array (<code>s_refcounts</code>).
+          </p>
+          <p style="margin-top:0.5rem;">
+            <strong>Virtual Memory Manager (VMM):</strong> Coordinates the 4-level AMD64 paging hierarchy (PML4, PDPT, PD, PT). Higher-Half Direct Map (HHDM) begins at <code>0xFFFF800000000000</code>, mapping all physical RAM. The lower half (<code>0x0000000000000000</code> to <code>0x00007FFFFFFFFFFF</code>) is dedicated to isolated userspace processes.
+          </p>
+
+          <div class="code-toolbar">
+            <span>pmm.c — Buddy Allocator Order Merging</span>
+            <button class="code-copy-btn" data-target="code-pmm">Copy Code</button>
+          </div>
+          <pre class="has-toolbar" id="code-pmm"><code>/* Calculate buddy frame index for order */
+static inline uint64_t get_buddy_frame(uint64_t frame_idx, uint8_t order) {
+    return frame_idx ^ (1ULL &lt;&lt; order);
+}
+
+/* Free a block of physical frames and coalesce buddies */
+void pmm_free_order(physaddr_t addr, uint8_t order) {
+    spinlock_acquire(&amp;s_pmm_lock);
+    uint64_t frame = addr_to_frame(addr);
+
+    while (order &lt; PMM_MAX_ORDER) {
+        uint64_t buddy = get_buddy_frame(frame, order);
+        if (!is_buddy_free(buddy, order)) break;
+
+        remove_from_free_list(buddy, order);
+        frame = (frame &lt; buddy) ? frame : buddy;
+        order++;
+    }
+
+    add_to_free_list(frame, order);
+    spinlock_release(&amp;s_pmm_lock);
+}</code></pre>
+        </article>
+
+        <!-- 3. Scheduler & SMP -->
+        <article class="doc-block" id="doc-scheduler">
+          <header class="doc-block-header">
+            <span class="doc-block-badge">kernel/src/scheduler.c & kernel/arch/x86_64/switch.asm</span>
+            <h3>3. Preemptive SMP Scheduler & Atomic Context Switching</h3>
+          </header>
+          <p>
+            Multi-core processing is coordinated through ACPI MADT enumeration and per-CPU state structures (<code>g_per_cpu[SMP_MAX_CPUS]</code>). Each CPU core operates three priority run-queues (High, Normal, Low) and an idle thread. Slicing is triggered by PIT Channel 0 programmed in <strong>Mode 2 (Rate Generator, command 0x34)</strong> at 100 Hz (10 ms quantum), supplemented by per-core Local APIC 1 kHz timers.
+          </p>
+          <p style="margin-top:0.5rem;">
+            <strong>Atomic Lock Release in <code>switch_context</code> (BUG-080):</strong> To prevent sibling cores from stealing a thread whose saved stack pointer (<code>prev->rsp</code>) is not yet written, the run-queue spinlock release is performed directly in assembly inside <code>switch_context</code> after RSP is safely moved to the incoming thread's stack.
+          </p>
+
+          <div class="code-toolbar">
+            <span>switch.asm — Atomic Lock Release Context Switch</span>
+            <button class="code-copy-btn" data-target="code-switch">Copy Code</button>
+          </div>
+          <pre class="has-toolbar" id="code-switch"><code>switch_context:
+    ; RDI = prev thread, RSI = next thread, RDX = &amp;runq_lock
+    push rbx
+    push rbp
+    push r12
+    push r13
+    push r14
+    push r15
+
+    mov [rdi + 8], rsp   ; Store updated RSP into prev->rsp
+    mov rsp, [rsi + 8]   ; Load next thread's saved RSP
+
+    ; ATOMIC: Release spinlock ONLY after we are off prev's stack!
+    mov dword [rdx], 0
+
+    pop r15
+    pop r14
+    pop r13
+    pop r12
+    pop rbp
+    pop rbx
+    ret</code></pre>
+        </article>
+
+        <!-- 4. Syscalls & Security -->
+        <article class="doc-block" id="doc-syscalls">
+          <header class="doc-block-header">
+            <span class="doc-block-badge">kernel/arch/x86_64/syscall.asm & kernel/src/aslr.c</span>
+            <h3>4. System Calls & Kernel Security Hardening</h3>
+          </header>
+          <p>
+            System calls enter via the <code>SYSCALL</code> instruction. Model-Specific Registers (MSRs) configure the entry point:
+          </p>
+          <ul style="margin: 0.75rem 0 1.0rem 1.5rem; color:var(--text-muted); font-size:0.95rem;">
+            <li><code>IA32_LSTAR</code> points to <code>syscall_entry</code>.</li>
+            <li><code>IA32_FMASK</code> clears IF, DF, and the Alignment Check (AC) bit. Clearing AC provides hardware-level mitigation for <strong>CVE-2012-0217</strong> (Intel SYSRET vulnerability).</li>
+            <li><code>syscall_entry</code> executes <code>swapgs</code>, preserves all 16 registers in a 128-byte <code>syscall_frame_t</code>, and validates user pointers against canonical higher-half boundaries.</li>
+            <li>ASLR: <code>aslr.c</code> implements a 32-bit maximal-length Galois LFSR with polynomial $x^{32} + x^{22} + x^2 + x + 1$ (tap mask <code>0xB4BCD35CUL</code>) seeded from <code>rdtsc</code> and PIT ticks to randomize user ELF base addresses with 2 MB alignment.</li>
+          </ul>
+        </article>
+
+        <!-- 5. Graphics (QDS, QAA, QWM) -->
+        <article class="doc-block" id="doc-graphics">
+          <header class="doc-block-header">
+            <span class="doc-block-badge">gui/qds/ & gui/qaa/ & gui/qwm/</span>
+            <h3>5. Graphics Engine & Compositor Architecture</h3>
+          </header>
+          <p>
+            The graphical desktop comprises three integrated subsystems:
+          </p>
+          <ul style="margin: 0.75rem 0 1.0rem 1.5rem; color:var(--text-muted); font-size:0.95rem;">
+            <li><strong>QDS (Quin Display Server):</strong> Double-buffered presentation engine maintaining back and front buffers. Tracks dirty bounding damage rectangles (<code>dmg_x, dmg_y, dmg_x2, dmg_y2</code>) to minimize PCI transfer overhead.</li>
+            <li><strong>QAA (Quin Anti-Aliased Engine):</strong> Pure-integer coverage rasterizer for smooth rounded rectangles, circles, sub-pixel fonts, and frosted-glass acrylic blur.</li>
+            <li><strong>QWM (Quin Window Manager):</strong> Floating compositor managing up to 32 windows, macOS-style traffic light buttons with hover interpolation, 7-pixel hit-tested edge resizing, live edge snapping, and centered floating dock with live 100 Hz uptime clock.</li>
+          </ul>
+        </article>
+
+        <!-- 6. Bare-Metal Network Stack -->
+        <article class="doc-block" id="doc-network">
+          <header class="doc-block-header">
+            <span class="doc-block-badge">drivers/net/tcp.c & drivers/net/ntp.c</span>
+            <h3>6. Bare-Metal RFC 793 TCP Engine & Protocols</h3>
+          </header>
+          <p>
+            Quin OS incorporates a complete TCP/IP stack implemented without external networking libraries:
+          </p>
+          <ul style="margin: 0.75rem 0 1.0rem 1.5rem; color:var(--text-muted); font-size:0.95rem;">
+            <li><strong>RFC 793 TCP:</strong> Full state machine (SYN, ESTABLISHED, FIN_WAIT, TIME_WAIT). Sliding window send/receive rings, MSS and window-scale negotiation, Jacobson/Karels dynamic RTO estimation (200 ms to 15 s), fast retransmit on three duplicate ACKs.</li>
+            <li><strong>Network Protocols:</strong> Ethernet framing, ARP cache with aging, IPv4 header checksumming, ICMP echo, UDP datagrams, DHCP client, DNS resolver, and RFC 4330 SNTP client (<code>ntp.c</code>) correcting RTC drift against global time servers.</li>
+            <li><strong>HTTP Client:</strong> HTTP/1.1 client with in-tree gzip decompression via miniz and TLS encryption via ported mbedtls.</li>
+          </ul>
+        </article>
+
+        <!-- 7. Ext2 Filesystem & VFS -->
+        <article class="doc-block" id="doc-storage">
+          <header class="doc-block-header">
+            <span class="doc-block-badge">kernel/src/ext2.c & kernel/src/vfs.c</span>
+            <h3>7. Storage Architecture & Ext2 Filesystem</h3>
+          </header>
+          <p>
+            The Virtual File System presents a unified mount table (16 entries) supporting USTAR initrd, tmpfs, devfs, procfs, and Ext2. The Ext2 driver (<code>kernel/src/ext2.c</code>) provides full read/write support backed by VirtIO-Blk or AHCI SATA disks.
+          </p>
+          <p style="margin-top:0.5rem;">
+            <strong>Hardware Safety Gate:</strong> To protect physical host disks from accidental data loss during bare-metal booting, <code>ext2_init()</code> verifies the volume label against <code>EXT2_QUIN_VOLUME_LABEL ("QUINOS_DISK")</code>. Unlabeled drives are strictly rejected from mounting.
+          </p>
+        </article>
+
+        <!-- 8. Hardware Drivers -->
+        <article class="doc-block" id="doc-drivers">
+          <header class="doc-block-header">
+            <span class="doc-block-badge">drivers/</span>
+            <h3>8. Modern Hardware Driver Subsystem</h3>
+          </header>
+          <p>
+            Drivers are compiled monolithically into the kernel binary, communicating through clean VFS device nodes:
+          </p>
+          <ul style="margin: 0.75rem 0 1.0rem 1.5rem; color:var(--text-muted); font-size:0.95rem;">
+            <li><strong>VirtIO Suite:</strong> VirtIO-GPU (2D resource create, scanout), VirtIO-Net (NIC rings), VirtIO-Blk (ext2 storage), VirtIO-Input (tablet coordinates).</li>
+            <li><strong>Native Storage:</strong> AHCI SATA controller with DMA, NVMe PCIe queues, legacy ATA PIO mode.</li>
+            <li><strong>USB Stack:</strong> USB 3.0 xHCI controller, USB 1.1 UHCI controller, USB HID keyboard/mouse, USB Mass Storage (MSC).</li>
+            <li><strong>Audio:</strong> Intel 82801AA AC97 audio codec with DMA buffer playback (NABMBAR) and PC Speaker via PIT Channel 2.</li>
+          </ul>
+        </article>
+
+        <!-- 9. Ring-3 & musl libc -->
+        <article class="doc-block" id="doc-userspace">
+          <header class="doc-block-header">
+            <span class="doc-block-badge">userspace/ & musl-1.2.4/</span>
+            <h3>9. Ring-3 Userspace & musl libc Integration</h3>
+          </header>
+          <p>
+            Userspace applications execute in Ring-3 as standard ELF64 binaries linked against <strong>musl libc 1.2.4</strong>. The kernel ELF loader (<code>elf.c</code>) maps <code>PT_LOAD</code> segments into per-process PML4 page tables, configures a 16 MB stack, initializes the System V AMD64 ABI stack with <code>argc</code>, <code>argv</code>, <code>envp</code>, and <code>auxv</code>, and transfers control via <code>sysretq</code> or <code>iretq</code>.
+          </p>
+        </article>
+
+        <!-- 10. Engines & Ports -->
+        <article class="doc-block" id="doc-ports">
+          <header class="doc-block-header">
+            <span class="doc-block-badge">userspace/apps/ & third_party/</span>
+            <h3>10. Ported Engines, Gaming & Media</h3>
+          </header>
+          <p>
+            Through its POSIX syscall interface and musl libc runtime, Quin OS 2 runs a wide array of sophisticated ported software:
+          </p>
+          <ul style="margin: 0.75rem 0 1.0rem 1.5rem; color:var(--text-muted); font-size:0.95rem;">
+            <li><strong>Web Browser:</strong> Litehtml box-model layout engine with QuickJS-ng ES2020 JavaScript engine.</li>
+            <li><strong>Video Player:</strong> MPEG-1 video and MP2 audio decoding via <code>pl_mpeg</code> synchronized with AC97 audio.</li>
+            <li><strong>Physics Sandbox:</strong> Chipmunk2D rigid-body dynamics simulation with gravity and collision geometry.</li>
+            <li><strong>Gaming & Emulation:</strong> Stockfish chess engine, DOOM, Quake 1, Nintendo Entertainment System (NES), Game Boy, and Sega Genesis emulators.</li>
+            <li><strong>Productivity:</strong> SQLite 3 database, Lua 5.4 interpreter, Redis in-memory cache, and Tiny C Compiler (TCC).</li>
+          </ul>
+        </article>
+
+        <!-- 11. Pro Tips & Shortcuts -->
+        <article class="doc-block" id="doc-usage">
+          <header class="doc-block-header">
+            <span class="doc-block-badge">User Guide</span>
+            <h3>11. Pro Tips, Keyboard Shortcuts & Customization</h3>
+          </header>
+          <div class="table-wrapper">
+            <table class="comp-table">
+              <thead>
+                <tr>
+                  <th>Shortcut / Command</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>Alt + Tab</code></td>
+                  <td>Cycle active window focus forward</td>
+                </tr>
+                <tr>
+                  <td><code>Super + Left Arrow</code></td>
+                  <td>Snap active window to the left half of the display</td>
+                </tr>
+                <tr>
+                  <td><code>Super + Right Arrow</code></td>
+                  <td>Snap active window to the right half of the display</td>
+                </tr>
+                <tr>
+                  <td><code>Super + Up Arrow</code></td>
+                  <td>Maximize active window to full 2560×1440 canvas</td>
+                </tr>
+                <tr>
+                  <td><code>Titlebar Shake</code></td>
+                  <td>Jostle physics particles in Chipmunk2D physics sandbox</td>
+                </tr>
+                <tr>
+                  <td><code>/theme.json</code></td>
+                  <td>Edit live system theme colors, radii, and acrylic blur tokens</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <!-- 12. In-OS Compiler -->
+        <article class="doc-block" id="doc-compiler">
+          <header class="doc-block-header">
+            <span class="doc-block-badge">Developer Tools</span>
+            <h3>12. Self-Hosting: Compiling Apps Inside Quin OS</h3>
+          </header>
+          <p>
+            With QuinDev and ported Tiny C Compiler (TCC), developers can author, compile, and execute C software natively inside Quin OS:
+          </p>
+          <div class="code-toolbar">
+            <span>Terminal (qsh) — In-OS Native Compilation</span>
+            <button class="code-copy-btn" data-target="code-tcc">Copy Code</button>
+          </div>
+          <pre class="has-toolbar" id="code-tcc"><code># Inside Quin OS 2 Terminal (qsh):
+root@quin:~# cat &gt; hello.c &lt;&lt; 'EOF'
+#include &lt;stdio.h&gt;
+
+int main(void) {
+    printf("Compiled from bare metal inside Quin OS 2!\n");
+    return 0;
+}
+EOF
+
+root@quin:~# tcc -o hello.elf hello.c
+root@quin:~# ./hello.elf
+Compiled from bare metal inside Quin OS 2!</code></pre>
+        </article>
+
+        <!-- 13. Roadmap -->
+        <article class="doc-block" id="doc-roadmap">
+          <header class="doc-block-header">
+            <span class="doc-block-badge">Future Engineering</span>
+            <h3>13. Quin OS 2 Production Roadmap</h3>
+          </header>
+          <ul style="margin: 0.75rem 0 1.0rem 1.5rem; color:var(--text-muted); font-size:0.95rem;">
+            <li><strong>Phase 4 (In Progress):</strong> Migration of QWM from Ring-0 into a privileged userspace server (<code>/sbin/qwm.elf</code>) communicating via <code>/dev/shm</code> shared memory surfaces.</li>
+            <li><strong>Phase 5:</strong> Dynamic linker (<code>ld-quin.so</code>) enabling shared libraries in userspace.</li>
+            <li><strong>Phase 6:</strong> SIMD/AVX2 acceleration for compositor blits and software video decoding.</li>
+          </ul>
+        </article>
+
+      </main>
+    </div>
+  </section>
+
+  <!-- Applications Showcase Grid -->
+  <section id="apps" class="container">
+    <div class="section-header">
+      <span class="section-tag">Desktop Environment</span>
+      <h2 class="section-title">Built-In Applications & Engines</h2>
+      <p class="section-desc">
+        A versatile native suite accompanied by world-class ported software engines, all drawing into QWM floating windows.
+      </p>
+    </div>
+
+    <div class="app-grid">
+      <!-- Terminal -->
+      <div class="app-card">
+        <img src="./assets/icons/Terminal.png" alt="Terminal" class="app-card-icon" onerror="this.src='./assets/icons/App.png'">
+        <div class="app-card-info">
+          <h4>Terminal (qsh)</h4>
+          <p>Full-featured interactive command shell with history, piping, environment variables, and job tracking.</p>
+          <span class="app-card-tag">Ring-3 musl</span>
+        </div>
+      </div>
+
+      <!-- Browser -->
+      <div class="app-card">
+        <img src="./assets/icons/Browser.png" alt="Browser" class="app-card-icon" onerror="this.src='./assets/icons/App.png'">
+        <div class="app-card-info">
+          <h4>Web Browser</h4>
+          <p>CSS box-model and flex layout engine powered by litehtml and QuickJS-ng ES2020 JavaScript execution.</p>
+          <span class="app-card-tag">litehtml + QuickJS</span>
+        </div>
+      </div>
+
+      <!-- QuinDev -->
+      <div class="app-card">
+        <img src="./assets/icons/Quin Dev.png" alt="QuinDev" class="app-card-icon" onerror="this.src='./assets/icons/App.png'">
+        <div class="app-card-info">
+          <h4>QuinDev IDE</h4>
+          <p>Integrated development environment with syntax highlighting, project explorer, and in-OS TCC compiler.</p>
+          <span class="app-card-tag">Self-Hosting</span>
+        </div>
+      </div>
+
+      <!-- Video Player -->
+      <div class="app-card">
+        <img src="./assets/icons/Video.png" alt="Video Player" class="app-card-icon" onerror="this.src='./assets/icons/App.png'">
+        <div class="app-card-info">
+          <h4>Quin Video</h4>
+          <p>Hardware-timed MPEG-1 video and MP2 audio stream decoder with audio-video sync at 30 FPS.</p>
+          <span class="app-card-tag">pl_mpeg + AC97</span>
+        </div>
+      </div>
+
+      <!-- Physics -->
+      <div class="app-card">
+        <img src="./assets/icons/Physics.png" alt="Physics" class="app-card-icon" onerror="this.src='./assets/icons/App.png'">
+        <div class="app-card-info">
+          <h4>Physics Sandbox</h4>
+          <p>Rigid-body 2D dynamics simulation powered by Chipmunk2D with gravity, friction, and window-shake response.</p>
+          <span class="app-card-tag">Chipmunk2D</span>
+        </div>
+      </div>
+
+      <!-- Chess -->
+      <div class="app-card">
+        <img src="./assets/icons/Chess.png" alt="Chess" class="app-card-icon" onerror="this.src='./assets/icons/App.png'">
+        <div class="app-card-info">
+          <h4>Stockfish Chess</h4>
+          <p>Grandmaster-level chess engine ported to Quin OS with full graphical board interface and move evaluation.</p>
+          <span class="app-card-tag">Stockfish Engine</span>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div class="app-card">
+        <img src="./assets/icons/Settings.png" alt="Settings" class="app-card-icon" onerror="this.src='./assets/icons/App.png'">
+        <div class="app-card-info">
+          <h4>Settings Hub</h4>
+          <p>Comprehensive system settings: display resolutions, live theme swatches, accounts, and audio levels.</p>
+          <span class="app-card-tag">Live Swatches</span>
+        </div>
+      </div>
+
+      <!-- File Manager -->
+      <div class="app-card">
+        <img src="./assets/icons/File Manager.png" alt="File Manager" class="app-card-icon" onerror="this.src='./assets/icons/App.png'">
+        <div class="app-card-info">
+          <h4>File Manager</h4>
+          <p>Ext2 and FAT32 visual file browser with dual directory tree and icon grid view modes.</p>
+          <span class="app-card-tag">Ext2 / VFS</span>
+        </div>
+      </div>
+
+      <!-- System Monitor -->
+      <div class="app-card">
+        <img src="./assets/icons/System Monitor.png" alt="System Monitor" class="app-card-icon" onerror="this.src='./assets/icons/App.png'">
+        <div class="app-card-info">
+          <h4>System Monitor</h4>
+          <p>Real-time CPU per-core load charts, physical RAM buddy usage, thread listings, and process signals.</p>
+          <span class="app-card-tag">procfs</span>
+        </div>
+      </div>
+
+      <!-- Notepad -->
+      <div class="app-card">
+        <img src="./assets/icons/Notepad.png" alt="Notepad" class="app-card-icon" onerror="this.src='./assets/icons/App.png'">
+        <div class="app-card-info">
+          <h4>Notepad</h4>
+          <p>Text editor equipped with predictive word completion engine (qpredict) and syntax file saving.</p>
+          <span class="app-card-tag">qpredict</span>
+        </div>
+      </div>
+
+      <!-- Music Player -->
+      <div class="app-card">
+        <img src="./assets/icons/Music Player.png" alt="Music Player" class="app-card-icon" onerror="this.src='./assets/icons/App.png'">
+        <div class="app-card-info">
+          <h4>Music Player</h4>
+          <p>Digital audio player supporting WAV, MP3, and Opus decoding with live frequency visualizer bars.</p>
+          <span class="app-card-tag">AC97 DMA</span>
+        </div>
+      </div>
+
+      <!-- CuteCraft 3D -->
+      <div class="app-card">
+        <img src="./assets/icons/cutecraft.png" alt="CuteCraft" class="app-card-icon" onerror="this.src='./assets/icons/App.png'">
+        <div class="app-card-info">
+          <h4>CuteCraft 3D</h4>
+          <p>Voxel world builder featuring custom 3D perspective projection and real-time block editing.</p>
+          <span class="app-card-tag">3D Engine</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Research Whitepaper Section -->
+  <section id="paper" class="container">
+    <div class="section-header">
+      <span class="section-tag">Academic Research & Citations</span>
+      <h2 class="section-title">Technical Whitepaper</h2>
+      <p class="section-desc">
+        Complete formal specification and architectural documentation for researchers, developers, and students.
+      </p>
+    </div>
+
+    <div style="background:var(--bg-card); border:1px solid var(--border-card); border-radius:var(--radius-lg); padding:2.5rem;">
+      <h3 style="margin-bottom:0.75rem;">Quin OS 2: Architecture, Implementation, and Empirical Evaluation</h3>
+      <p style="margin-bottom:1.5rem; color:var(--text-muted);">
+        Authored by <strong>Dr Chamyoung (Alok)</strong> at <strong>Inbora Studio</strong>. The complete 48-page technical whitepaper covers the 5-year evolutionary history from XuNet OS, source-grounded memory models, race condition bisections, and formal benchmark evaluations.
+      </p>
+
+      <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2.0rem;">
+        <a href="https://github.com/InboraStudio/Quin-1-OS/blob/main/docs/QUIN_OS_2_RESEARCH_PAPER.md" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          Read Whitepaper on GitHub
+        </a>
+        <a href="https://inborastudio.github.io/XuNetOS" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          View 32-Bit XuNet OS Site
+        </a>
+      </div>
+
+      <!-- BibTeX Citation Block -->
+      <div class="citation-box">
+        <div class="citation-header">
+          <span class="citation-title">BibTeX Citation</span>
+          <button class="code-copy-btn" data-target="code-bibtex">Copy Citation</button>
+        </div>
+        <pre id="code-bibtex"><code>@article{chamyoung2026quinos2,
+  title={Quin OS 2: Architecture, Implementation, and Empirical Evaluation of a Freestanding 64-Bit Monolithic-to-Isolated Operating System},
+  author={Chamyoung, Dr. (Alok)},
+  journal={Inbora Studio Technical Reports},
+  volume={2},
+  number={1},
+  pages={1--48},
+  year={2026},
+  publisher={Inbora Studio},
+  url={https://inborastudio.github.io/QuinOS/}
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tasteful Footer with Search-Indexed Metadata -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h5>Quin OS 2</h5>
+          <p style="font-size:0.85rem; line-height:1.6; margin-bottom:1.0rem;">
+            An independent 64-bit operating system crafted from bare metal. Developed over a 5-year journey (2021–2026) by Inbora Studio under lead researcher Dr Chamyoung (Alok).
+          </p>
+          <div style="font-size:0.75rem; color:var(--text-dim);">
+            Succeeding XuNet OS 32-Bit (2021)
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Documentation</h5>
+          <ul>
+            <li><a href="#doc-boot">Boot & Paging</a></li>
+            <li><a href="#doc-memory">Memory Subsystem</a></li>
+            <li><a href="#doc-scheduler">Preemptive SMP</a></li>
+            <li><a href="#doc-syscalls">POSIX Syscalls</a></li>
+            <li><a href="#doc-network">RFC 793 TCP Engine</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Ecosystem</h5>
+          <ul>
+            <li><a href="#apps">Native Desktop Suite</a></li>
+            <li><a href="#apps">Web Browser (litehtml)</a></li>
+            <li><a href="#apps">QuinDev & TinyCC</a></li>
+            <li><a href="#apps">MPEG-1 Video Player</a></li>
+            <li><a href="#comparisons">Linux & TempleOS Benchmarks</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Repositories</h5>
+          <ul>
+            <li><a href="https://github.com/InboraStudio/Quin-1-OS" target="_blank" rel="noopener noreferrer">Quin OS 64-Bit Repo</a></li>
+            <li><a href="https://github.com/InboraStudio/Cloud_quin_os2" target="_blank" rel="noopener noreferrer">Cloud Quin OS 2</a></li>
+            <li><a href="https://github.com/InboraStudio/XuNetOS-32-bit" target="_blank" rel="noopener noreferrer">XuNet OS 32-Bit Repo</a></li>
+            <li><a href="https://inborastudio.github.io/XuNetOS" target="_blank" rel="noopener noreferrer">Old XuNet OS Site</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2021 – 2026 Inbora Studio. Researched and developed by Dr Chamyoung (Alok). All rights reserved.
+        </div>
+        <div style="font-family:var(--font-mono); font-size:0.75rem;">
+          x86_64 Freestanding Architecture • Quin OS 2 Beta
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/app.js"></script>
+</body>
+</html>
